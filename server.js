@@ -15,7 +15,7 @@ app.use(methodOverride());
 
 var Todo = mongoose.model('Todo', {text:String});
 
-app.get('/api/todos', function(req, err){
+app.get('/api/todos', function(req, res){
   Todo.find(function(err, todos){
     if(err){
       res.send(err);
