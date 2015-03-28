@@ -13,5 +13,44 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
 app.use(methodOverride());
 
+var Todo = mongoose.model('Todo', {text:String});
+
+app.get('/api/todos', function(req, err){
+  Todo.find(function(err, todos){
+    if(err){
+      res.send(err);
+    }
+    res.json(todos);
+  });
+});
+
+app.post('/api/todos', function(req, res){
+  Todo.create({
+    text:req.body.text,
+    done:false
+  }, function(err, todo){
+    if(err){
+      res.send(err);
+    }
+    Todo.find(function(err, todos){
+      if(err){
+        res.send(err);
+      }
+      res.json(todos);
+    });
+  });
+});
+
+app.delete('/api/todos/:todo_id', function(req, res){
+  Todo.remove({
+    _id:req.params.todo_id
+  }, function(err, todos){
+    if(err){
+      res.send(err);
+    }
+    res.json(todos);
+  });
+});
+
 app.listen(8080);
 console.log("App listening on port 8080");
