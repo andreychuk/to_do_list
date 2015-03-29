@@ -41,9 +41,9 @@ app.post('/api/todos', function(req, res){
   });
 });
 
-app.delete('/api/todos/:todo_id', function(req, res){
+app.delete('/api/todos/:id', function(req, res){
   Todo.remove({
-    _id:req.params.todo_id
+    _id:req.params.id
   }, function(err, todos){
     if(err){
       res.send(err);
@@ -52,5 +52,5 @@ app.delete('/api/todos/:todo_id', function(req, res){
   });
 });
 
-app.listen(8080);
+app.listen(300);
 console.log("App listening on port 8080");
